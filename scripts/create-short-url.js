@@ -23,9 +23,12 @@ const shortUrlPath =
     ? generateRandomId()
     : await arg("Enter the path do you want to use")
 const longUrl = await arg("Enter the long URL")
+// todo: should there be any validation/error handling before going through the commit?
 
 await $`git switch main`
 await $`git pull origin main`
+// todo: check for duplicates before adding to the file
+// todo: can I add within a section of the file, not just at the end?
 await $`echo "\n/${shortUrlPath}  ${longUrl} 302" >> public/_redirects`
 await $`git commit -am "Create short URL for ${longUrl}" -m "This commit was automated by ScriptKit."`
 await $`git push origin main`
